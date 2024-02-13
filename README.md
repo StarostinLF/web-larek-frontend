@@ -1,5 +1,7 @@
 # Проектная работа "Веб-ларек"
 
+### Учебная проектная работа с [макетом "Веб-ларёк"](https://www.figma.com/file/50YEgxY8IYDYj7UQu7yChb/Веб-ларёк?type=design&node-id=0-1&mode=design&t=tQ9xTmGuVtBDpWT6-0) по курсу Яндекс Практикума "Фронтенд-разработчик"
+
 **Стек**: `HTML`, `SCSS`, `TS`, `Webpack`
 
 **Структура проекта**:
