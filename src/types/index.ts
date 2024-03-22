@@ -27,4 +27,12 @@ export interface IOrderResult {
 	total: number;
 }
 
+export interface IAppState {
+	catalog: IProductItem[];
+	basket: IProductItem[];
+	preview: string | null;
+	order: IOrderForm | null;
+	loading: boolean;
+}
+
 export type FormErrors = Partial<Record<keyof IOrderForm, string>>;
