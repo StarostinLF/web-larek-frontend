@@ -21,15 +21,16 @@ export class Form<T> extends Component<IFormState> {
 		this._errors = ensureElement<HTMLElement>('.form__errors', this.container);
 
 		this.container.addEventListener('input', (e: Event) => {
-			const target = e.target as HTMLInputElement;
-			const field = target.name as keyof T;
-			const value = target.value;
+			const target = e.target as HTMLInputElement,
+				field = target.name as keyof T,
+				value = target.value;
 
 			this.onInputChange(field, value);
 		});
 
 		this.container.addEventListener('submit', (e: Event) => {
 			e.preventDefault();
+
 			this.events.emit(`${this.container.name}:submit`);
 		});
 	}

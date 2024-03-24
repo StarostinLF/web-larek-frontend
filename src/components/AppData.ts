@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
-import { Model } from './base/Model';
-import { IAppState, IOrderForm, FormErrors, IContactsForm } from '../types';
 import { ICard } from './Card';
+import { Model } from './base/Model';
+import { IAppState, IOrderForm, FormErrors } from '../types';
 
 export type CatalogChangeEvent = {
 	catalog: ICard[];
@@ -57,21 +57,12 @@ export class AppState extends Model<IAppState> {
 		this.emitChanges('preview:changed', item);
 	}
 
-	validateDeliveryForm() {
+	validateOrderForm() {
 		const errors: typeof this.formErrors = {};
 
-		if (!this.order.email) errors.payment = 'Необходимо указать способ оплаты';
-		if (!this.order.phone) errors.address = 'Необходимо указать адрес';
-
-		this.formErrors = errors;
-		this.events.emit('formErrors:change', this.formErrors);
-
-		return Object.keys(errors).length === 0;
-	}
-
-	validateContactForm() {
-		const errors: typeof this.formErrors = {};
-
+		if (!this.order.payment)
+			errors.payment = 'Необходимо указать способ оплаты';
+		if (!this.order.address) errors.address = 'Необходимо указать адрес';
 		if (!this.order.email) errors.email = 'Необходимо указать email';
 		if (!this.order.phone) errors.phone = 'Необходимо указать телефон';
 
@@ -81,9 +72,12 @@ export class AppState extends Model<IAppState> {
 		return Object.keys(errors).length === 0;
 	}
 
-	setOrderField(field: keyof IContactsForm, value: string) {
-		this.order[field] = value;
+	setOrderField(field: keyof IOrderForm, value: string | number) {
+		if (field === 'total') this.order[field] = value as number;
+		else if (field === 'items') {
+			this.order[field].push(value as string);
+		} else this.order[field] = value as string;
 
-		if (this.validateContactForm()) this.events.emit('order:ready', this.order);
+		if (this.validateOrderForm()) this.events.emit('order:ready', this.order);
 	}
 }

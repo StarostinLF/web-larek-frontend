@@ -4,17 +4,17 @@ import { IEvents } from './base/events';
 import { ensureAllElements } from '../utils/utils';
 
 export class Order extends Form<IOrderForm> {
-	protected _orderButton: HTMLButtonElement[];
+	protected _paymentButton: HTMLButtonElement[];
 
 	constructor(container: HTMLFormElement, events: IEvents) {
 		super(container, events);
 
-		this._orderButton = ensureAllElements<HTMLButtonElement>(
+		this._paymentButton = ensureAllElements<HTMLButtonElement>(
 			'.button_alt',
 			container
 		);
-		this._orderButton.forEach((button) =>
-			button.addEventListener('click', () => (this.selected = button.name))
+		this._paymentButton.forEach((button) =>
+			button.addEventListener('click', () => this.selected(button.name))
 		);
 	}
 
@@ -33,10 +33,10 @@ export class Order extends Form<IOrderForm> {
 			value;
 	}
 
-	set selected(name: string) {
-		this._orderButton.forEach((button) =>
+	selected(name: string) {
+		this._paymentButton.forEach((button) =>
 			this.toggleClass(button, 'button_alt-active', button.name === name)
 		);
-		this.events.emit('payment:change', { name });
+		this.events.emit('order:change', { name });
 	}
 }

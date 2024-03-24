@@ -1,6 +1,7 @@
 import { Component } from '../base/Component';
-import { createElement, ensureElement, formatNumber } from '../../utils/utils';
 import { EventEmitter } from '../base/events';
+import { ensureElement, createElement, formatNumber } from '../../utils/utils';
+import { ICard } from '../Card';
 
 interface IBasketView {
 	items: HTMLElement[];
@@ -37,12 +38,12 @@ export class Basket extends Component<IBasketView> {
 		}
 	}
 
-	set selected(items: string[]) {
+	set selected(items: ICard[]) {
 		if (items.length) this.setDisabled(this._button, false);
 		else this.setDisabled(this._button, true);
 	}
 
 	set total(total: number) {
-		this.setText(this._total, `${formatNumber(total)} синапса(-ов)`);
+		this.setText(this._total, `${formatNumber(total)} синапсов`);
 	}
 }
