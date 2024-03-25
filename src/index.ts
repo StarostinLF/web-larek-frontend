@@ -165,8 +165,10 @@ events.on('order:open', () => {
 	});
 });
 
+// Проверка выбора способа оплаты
 events.on('order:change', ({ name }: { name: string }) => {
 	appData.order.payment = name;
+	appData.validateOrderForm();
 });
 
 // Открытие формы контактов
