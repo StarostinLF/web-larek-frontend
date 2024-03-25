@@ -316,8 +316,9 @@
 						<input
 							name="email"
 							class="form__input"
-							type="text"
+							type="email"
 							placeholder="Введите Email"
+							pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
 						/>
 					</label>
 					<label class="order__field">
@@ -325,8 +326,10 @@
 						<input
 							name="phone"
 							class="form__input"
-							type="text"
+							type="tel"
+							minlength="11"
 							placeholder="+7 ("
+							pattern="^(\+7|8)\s?\(?\d{3}\)?\s?\d{3}\s?\d{2}\s?\d{2}$"
 						/>
 					</label>
 				</div>
